@@ -110,10 +110,160 @@ public class ExamSchedulerTester {
   }
 
   private static boolean testRoomValidInputTester() {
-    return false;
+    // Defining local variables
+    String testLocation;
+    int testCapacity;
+    Room testObj;
+    int numToReduce;
+    int reducedCapacity;
+
+    // Define test cases
+    // Test 1: Make sure the constructor sets the location of the room correctly and it is
+    // correctly returned by the getLocation() method
+    // Initializing Variables
+    testLocation = "Noland 168";
+    testCapacity = 258;
+    // Testing
+    try {
+      // Object creation with test values
+      testObj = new Room(testLocation, testCapacity);
+      // Test-Condition
+      if (!testObj.getLocation().equals(testLocation)) {
+        System.out.println("Problem Detected: Your method getLocation() does not return the same"
+            + " location as it was initialized with using the constructor");
+        return false;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your method getLocation() threw an exception when "
+          + "it shouldn't have");
+      return false;
+    }
+
+    // Test 2: Make sure the constructor sets the capacity of the room correctly and it is
+    // correctly returned by the getCapacity() method
+    // Initializing Variables
+    testLocation = "Noland 168";
+    testCapacity = 258;
+    // Testing
+    try {
+      // Object creation with test values
+      testObj = new Room(testLocation, testCapacity);
+      // Test-Condition
+      if (testObj.getCapacity() != testCapacity) {
+        System.out.println("Problem Detected: Your method getCapacity() does not return the same"
+            + " location as it was initialized with using the constructor");
+        return false;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your method getCapacity() threw an exception when "
+          + "it shouldn't have");
+      return false;
+    }
+
+    // Test 3: Checks if reduceCapacity correctly reduces capacity
+    // Initializing variables
+    testLocation = "Noland 168";
+    testCapacity = 258;
+    numToReduce = 18;
+    reducedCapacity = testCapacity - numToReduce;
+    //Testing
+    try {
+      // Object Creation
+      testObj = new Room(testLocation, testCapacity);
+      // Reducing Capacity
+      Room reducedCapObj = testObj.reduceCapacity(numToReduce);
+      // Checking test condition
+      if (reducedCapObj.getCapacity() != reducedCapacity) {
+        System.out.println("Problem detected: Your method reducedCapacity() does not reduce the"
+            + " capacity as expected");
+        return false;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your method reducedCapacity() threw an Exception "
+          + "when it was being tested");
+      return false;
+    }
+    // If this line is reached, all above tests pass and so true is returned
+    return true;
   }
 
   private static boolean testRoomInvalidInputTester() {
-    return false;
+    // Defining local variables
+    String testLocation;
+    int testCapacity;
+    Room testObj;
+    int numToReduce;
+    int reducedCapacity;
+
+    // Define test cases (test 4 and 5)
+    // Test 4: Check if the right exception is passed by the constructor when the integer
+    // passed in is negative
+    // Assigning test variables
+    testLocation = "Noland 168";
+    testCapacity = -1; // negative
+    //Testing
+    try {
+      // Object Creation
+      testObj = new Room(testLocation, testCapacity);
+      // Expected: Constructor should throw an IllegalArgumentException with a descriptive
+      // error message
+      // If this line is reached, then the exception is not thrown so returning false
+      System.out.println("Problem Detected: Your constructor did not throw an exception when "
+          + "passed a negative int value as input");
+      return false;
+    } catch (IllegalArgumentException e) {
+      // Right Exception thrown
+      // Checking for descriptive message
+      if (e.getMessage() == null || e.getMessage().length() == 0) {
+        System.out.println("Problem Detected: The Exception which your constructor threw when "
+            + "it was passed a negative value did ot have a descriptive message");
+        return false;
+      }
+    } catch (Exception e) {
+      // Wrong exception was passed
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your class Room's constructor did not throw the "
+          + "right exception when it was passed a negative value");
+      return false;
+    }
+
+    // Test 5: Check if the right exception with a descriptive error message is passed when
+    // argument is greater than the given room’s capacity
+    // Assigning test variables
+    testLocation = "Noland 168";
+    testCapacity = 258;
+    numToReduce = 259; // more than the given room capacity
+
+    // Testing
+    try {
+      // Object Creation
+      testObj = new Room(testLocation, testCapacity);
+      // Calling the reduceCapacity() method
+      testObj.reduceCapacity(numToReduce);
+      // Expected: The reduceCapacity() method should throw an IllegalArgumentException
+      System.out.println("Problem Detected: Your method reduceCapacity() does not throw an "
+          + "exception when the integer argument passed to it is bigger than its given capacity");
+      return false;
+    } catch (IllegalArgumentException e) {
+      // Right Exception was thrown
+      // Checking for descriptive error message
+      if (e.getMessage() == null || e.getMessage().length() == 0) {
+        System.out.println(" Problem Detected: Your method() reduceCapacity() does have a "
+            + "descriptive message with the Exception it throws");
+        return false;
+      }
+    } catch (Exception e) {
+      // Some other exception was thrown
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your method reduceCapacity() passes an exception "
+          + "other than an IllegalArgumentException when passed an integer value bigger than "
+          + "the Room's given capacity");
+      return false;
+    }
+
+    return true;
   }
 }
