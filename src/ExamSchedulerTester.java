@@ -3,12 +3,17 @@ public class ExamSchedulerTester {
   public static void main(String[] args) {
     //Running tests
     System.out.println("testCourse(): " + testCourse());
+    System.out.println("testRoom(): " + testRoom());
   }
 
   // Implementing the testCourse() method
   public static boolean testCourse() {
-    return /*testCourseValidInputTester() &&*/ testCourseInvalidInputTester();
+    return testCourseValidInputTester() && testCourseInvalidInputTester();
   } // testCourse ends
+
+  public static boolean testRoom() {
+    return testRoomValidInputTester() && testRoomInvalidInputTester();
+  }
 
   private static boolean testCourseValidInputTester() {
     //Defining local variables
@@ -102,5 +107,13 @@ public class ExamSchedulerTester {
     }
     // All the above tests passed so returning true
     return true;
+  }
+
+  private static boolean testRoomValidInputTester() {
+    return false;
+  }
+
+  private static boolean testRoomInvalidInputTester() {
+    return false;
   }
 }
