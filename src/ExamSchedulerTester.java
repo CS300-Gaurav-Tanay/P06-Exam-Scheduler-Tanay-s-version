@@ -4,6 +4,7 @@ public class ExamSchedulerTester {
     //Running tests
     System.out.println("testCourse(): " + testCourse());
     System.out.println("testRoom(): " + testRoom());
+    System.out.println("testScheduleAccessors(): " + testScheduleAccessors());
   }
 
   // Implementing the testCourse() method
@@ -18,7 +19,8 @@ public class ExamSchedulerTester {
   public static boolean testScheduleAccessors() {
 
     // todo
-    return testScheduleAccessorsValidInputTester() && testScheduleAccessorsInvalidInputTester();
+    return testScheduleAccessorsValidInputTester() /*&& testScheduleAccessorsInvalidInputTester
+    ()*/;
   }
 
   public static boolean testAssignCourse() {
@@ -69,8 +71,7 @@ public class ExamSchedulerTester {
       //Checking test condition if the getName methods returns name of course correctly
       if (testObj.getNumStudents() != testNumStudents) {
         System.out.println("Problem Detected: Your getNumStudents() method does not return the "
-            + "int variable that was passed to it at Object Creation"
-            + " ");
+            + "int variable that was passed to it at Object Creation" + " ");
         return false;
       }
     } catch (Exception e) {
@@ -278,8 +279,100 @@ public class ExamSchedulerTester {
   }
 
   private static boolean testScheduleAccessorsValidInputTester() {
-    // todo
-    return false;
+    // Declaring local variables
+    Course[] testCourses;
+    Room[] testRooms;
+    int[] testAssignments;
+    Course testCourse;
+    Room testRoom;
+    Schedule testSchedule;
+
+    /*
+    The functionality of the constructor will be indirectly tested by testing the methods of
+    the class Schedule
+     */
+
+    // Define test scenarios
+
+    // Test 1: Makes sure the constructor correctly initializes the course array to the right
+    // number of elements and at the same array too.
+
+    // Assigning variables
+    testCourse = new Course("CS 200", 254);
+    testCourses = new Course[] {null, null, null, testCourse, null};
+    testRooms = new Room[] {null, null, new Room("Noland 168", 280), null, null};
+
+    // Expected: Constructors correctly sets the array passed to it as data fields in the
+    // class and constructor initializes an assignments array of the same length as the course
+
+    // Testing
+    try {
+      //Creating new schedule Object
+      testSchedule = new Schedule(testRooms, testCourses);
+
+      // Condition 1 (getNumCourses() works)
+      if (testSchedule.getNumCourses() != testCourses.length) {
+        System.out.println("Problem Detected: Your getNumCourses() method does not correctly "
+            + "return the size of the courses array which the Schedule Object was assigned to "
+            + "during object Creation");
+        return false;
+      }
+
+      // Condition 2 (getCourse() works)
+      if (!(testSchedule.getCourse(3).equals(testCourse))) {
+        System.out.println("Problem Detected: Your method getCourse does not correctly return "
+            + "the course Object at the desired index");
+        return false;
+      }
+    } catch (Exception e) {
+      // Program throws exception when it shoouldn't
+      e.printStackTrace();
+      System.out.println("Your constructor, getCourse() or getNumCourses() methods threw an "
+          + "exception when they shouldn't have");
+      return false;
+    }
+
+    // Test 2: Make sure that the constructor correctly initializes the room array to the
+    // correct number of elements and the right elements
+
+    // Assigning Variables
+    testRoom = new Room("Noland 168", 280);
+    testCourse = new Course("CS 200", 254);
+    testCourses = new Course[] {null, null, null, testCourse, null};
+    testRooms = new Room[] {null, null, testRoom, null, null};
+
+    // Expected: Constructors correctly sets the array passed to it as data fields in the
+    // class and constructor initializes an assignments array of the same length as the course
+
+    // Testing
+    try {
+      //Creating new Schedule Object
+      testSchedule = new Schedule(testRooms, testCourses);
+
+      // Condition 1 (getNumRooms() returns the size of the array)
+      if ((testSchedule.getNumRooms() != testRooms.length)) {
+        System.out.println("Problem Detected: Your getNumRooms() method does not correctly "
+            + "return the size of the rooms array which the Schedule Object was assigned to "
+            + "during object Creation");
+        return false;
+      }
+
+      // Condition 2 (getRoom() returns the correct Room Object at the correct index)
+      if (!(testSchedule.getRoom(2).equals(testRoom))) {
+        System.out.println("Problem Detected: Your method getRoom() does not correctly return "
+            + "the Room Object at the desired index");
+        return false;
+      }
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+      System.out.println("Your constructor, getRoom() or getNumRooms() methods threw an "
+          + "exception when they shouldn't have");
+      return false;
+    }
+
+
+    // If all tests pass, return true
+    return true;
   }
 
   private static boolean testScheduleAccessorsInvalidInputTester() {
