@@ -15,6 +15,16 @@ public class ExamSchedulerTester {
     return testRoomValidInputTester() && testRoomInvalidInputTester();
   }
 
+  public static boolean testScheduleAccessors() {
+
+    // todo
+    return testScheduleAccessorsValidInputTester() && testScheduleAccessorsInvalidInputTester();
+  }
+
+  public static boolean testAssignCourse() {
+    return testAssignCourseValidInputTester() && testAssignCourseInvalidInputTester();
+  }
+
   private static boolean testCourseValidInputTester() {
     //Defining local variables
     String testName; // String parameter for testing testCourse
@@ -265,5 +275,25 @@ public class ExamSchedulerTester {
     }
 
     return true;
+  }
+
+  private static boolean testScheduleAccessorsValidInputTester() {
+    // todo
+    return false;
+  }
+
+  private static boolean testScheduleAccessorsInvalidInputTester() {
+    // todo
+    return false;
+  }
+
+  private static boolean testAssignCourseValidInputTester() {
+    // todo
+    return false;
+  }
+
+  private static boolean testAssignCourseInvalidInputTester() {
+    // todo
+    return false;
   }
 }
