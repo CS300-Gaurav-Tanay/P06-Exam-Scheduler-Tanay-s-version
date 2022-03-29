@@ -78,6 +78,12 @@ public class Schedule {
     int roomIndex;
     Course tempObj;
 
+
+    // Using the getCourse() method to assign the tmpObj object with the course at index "index"
+    // This checks if the index is valid or not and throws an indexOutOfBoundsException if not
+    // valid
+    tempObj = this.getCourse(index);
+
     // Checking if the course has/has not been assigned to a room. If not, throwing an
     // IllegalArgumentException
 
@@ -85,12 +91,6 @@ public class Schedule {
       throw new IllegalArgumentException(
           "Invalid Input: The course at index " + index + " has " + "not been assigned yet");
     }
-
-    // Using the getCourse() method to assign the tmpObj object with the course at index "index"
-    // This checks if the index is valid or not and throws an indexOutOfBoundsException if not
-    // valid
-
-    tempObj = this.getCourse(index);
 
     //Now that we have checked that both the index is valid and the course is assigned with a
     // room,returning the room assigned with the course at index "index"
@@ -114,6 +114,66 @@ public class Schedule {
     // retuning true
     return true;
   }
+  
+  public Schedule assignCourse(int courseIndex, int roomIndex) throws IllegalArgumentException {
+    // Declaring local variables
+    Room[] roomDeepCopy;
+    Course[] courseDeepCopy;
+    int[] assignmentsDeepCopy;
+    Schedule objToReturn;
 
+    // Checking exception conditions
 
+    // Checking if the room or the course index is invalid using the getRoom() and getCourse()
+    // methods which check for the same
+    this.getRoom(roomIndex);
+    this.getCourse(courseIndex);
+
+    // Checking if the given course has already been assigned with a room
+    if (this.isAssigned(courseIndex)) {
+      throw new IllegalArgumentException("Invalid Input: The course index passed to the "
+          + "assignCourse() method has already been assigned");
+    }
+
+    // Creating the new Schedule Object
+    // Creating the deep copy of courses, rooms and assignments
+    roomDeepCopy = Arrays.copyOf(this.rooms, this.rooms.length);
+    courseDeepCopy = Arrays.copyOf(this.courses, this.courses.length);
+    assignmentsDeepCopy = Arrays.copyOf(this.assignments, this.assignments.length);
+
+    //Reducing Capacity for the specific room
+    roomDeepCopy[roomIndex] =
+        roomDeepCopy[roomIndex].reduceCapacity(courseDeepCopy[courseIndex].getNumStudents());
+
+    // Assign room to course through assignments
+    assignmentsDeepCopy[courseIndex] = roomIndex;
+
+    //Creating the new scheduled object and returning it
+    objToReturn = new Schedule(roomDeepCopy, courseDeepCopy, assignmentsDeepCopy);
+
+    //returning
+    return objToReturn;
+  }
+
+  @Override
+  public String toString() {
+    // Defining local variables
+    String strReturn = "{";
+    String tmpStr;
+    int i;
+
+    //running a for loop to iterate through each course
+    for (i = 0; i < this.courses.length; i++) {
+      if (!this.isAssigned(i)) {
+        tmpStr = this.courses[i].getName() + ": " + "Unassigned";
+      }
+      else
+        tmpStr = this.courses[i].getName() + ": " + this.rooms[assignments[i]].getLocation();
+      strReturn = strReturn + tmpStr + ", ";
+    }
+    //Removing last ", "
+    strReturn = strReturn.substring(0, strReturn.length() - 2);
+    strReturn = strReturn + "}";
+    return strReturn;
+  }
 }

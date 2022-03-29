@@ -173,9 +173,9 @@ public class ExamSchedulerTester {
       // Object Creation
       testObj = new Room(testLocation, testCapacity);
       // Reducing Capacity
-      Room reducedCapObj = testObj.reduceCapacity(numToReduce);
+      testObj = testObj.reduceCapacity(numToReduce);
       // Checking test condition
-      if (reducedCapObj.getCapacity() != reducedCapacity) {
+      if (testObj.getCapacity() != reducedCapacity) {
         System.out.println("Problem detected: Your method reducedCapacity() does not reduce the"
             + " capacity as expected");
         return false;
