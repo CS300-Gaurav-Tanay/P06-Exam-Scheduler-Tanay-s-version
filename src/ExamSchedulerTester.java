@@ -370,6 +370,87 @@ public class ExamSchedulerTester {
       return false;
     }
 
+    //Test 3: Testing the isAssigned() method
+
+    // Assigning the variables
+    testRoom = new Room("Noland 168", 280);
+    testCourse = new Course("CS 200", 254);
+    testCourses = new Course[] {null, null, null, testCourse, null};
+    testRooms = new Room[] {null, null, testRoom, null, null};
+
+    //Testing
+    try {
+      // Creating a new Schedule
+      testSchedule = new Schedule(testRooms, testCourses);
+
+      // Condition 1 (isAssigned() returns false for an unassigned room for a newly created
+      // Schedule Object)
+      if (testSchedule.isAssigned(3)) {
+        // If isAssigned() returns true
+        System.out.println("Problem Detected: Your isAssigned() method returns true for an "
+            + "unassigned course too");
+        return false;
+      }
+
+      // Assigning the room at index 2 to the course at index 3
+      testSchedule = testSchedule.assignCourse(3, 2);
+
+      //Condition 2 (isAssigned() should return true now that the course has been assigned a room
+      if (!testSchedule.isAssigned(3)) {
+        // If isAssigned() returns false
+        System.out.println("Problem Detected: Your isAssigned() course returns fals for a room "
+            + "that has already been assigned");
+        return false;
+      }
+    } catch (IllegalArgumentException e) {
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your isAssigned() threw an exception when it was "
+          + "being tested with valid inputs");
+      return false;
+    }
+
+    // Test 4: Testing the isComplete() method
+
+    // Assigning the variables
+    testRoom = new Room("Noland 168", 280);
+    testCourse = new Course("CS 200", 254);
+    testCourses = new Course[] {testCourse, testCourse, testCourse, testCourse, testCourse};
+    testRooms = new Room[] {testRoom, testRoom, testRoom, testRoom, testRoom};
+
+    // Testing
+    try {
+      // Creating new Schedule Object
+      testSchedule = new Schedule(testRooms, testCourses);
+
+      // Condition 1 (Checking if isComplete() gives false for a newly created schedule Object
+      if (testSchedule.isComplete()) {
+        // If isComplete() returns true
+        System.out.println("Problem Detected: Your isComplete() returns true even when all of "
+            + "the courses have not been assigned (for a newly created Schedule Object");
+        return false;
+      }
+
+      // Assigning each course to a room
+      testSchedule = testSchedule.assignCourse(0, 0);
+      testSchedule =  testSchedule.assignCourse(1, 1);
+      testSchedule =  testSchedule.assignCourse(2, 2);
+      testSchedule = testSchedule.assignCourse(3, 3);
+      testSchedule = testSchedule.assignCourse(4, 4);
+
+      // Now that course has been assigned, isComplete() should return true
+      // Condition 2 (isComplete() returns true for all objects being assigned)
+      if (!testSchedule.isComplete()) {
+        // If isComplete () returns false
+        System.out.println("Problem Detected: Your isComplete() method returns false for "
+            + "Schedule Object where all of course have been assigned to rooms");
+        return false;
+      }
+    } catch (IllegalArgumentException e) {
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your isComplete() method threw an exception whe it "
+          + "should have not");
+      return false;
+    }
 
     // If all tests pass, return true
     return true;

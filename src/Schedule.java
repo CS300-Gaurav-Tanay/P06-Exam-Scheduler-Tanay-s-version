@@ -155,8 +155,7 @@ public class Schedule {
     return objToReturn;
   }
 
-  @Override
-  public String toString() {
+  @Override public String toString() {
     // Defining local variables
     String strReturn = "{";
     String tmpStr;
