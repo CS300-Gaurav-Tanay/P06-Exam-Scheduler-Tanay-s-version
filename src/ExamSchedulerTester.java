@@ -452,6 +452,38 @@ public class ExamSchedulerTester {
       return false;
     }
 
+    // Test 5: Testing the getAssignment() method
+
+    //Assigning the variables
+    testRoom = new Room("Noland 168", 280);
+    testCourse = new Course("CS 200", 254);
+    testCourses = new Course[] {null, null, null, testCourse, null};
+    testRooms = new Room[] {null, null, testRoom, null, null};
+
+    //Testing
+    try {
+      // Create a new Schedule Object
+      testSchedule = new Schedule(testRooms, testCourses);
+
+      // Assigning course at index 3 to room at index 2
+      testSchedule = testSchedule.assignCourse(3, 2);
+
+      // Condition 1 (Checking if getAssignment() returns back the same room Object which was
+      // assigned with the statement above
+      if (!(testSchedule.getAssignment(3).getLocation().equals(testRoom.getLocation()))) {
+        System.out.println("Problem Detected: Your getAssignment() method does not return the "
+            + "same room which was passed to the Schedule Object and assigned earlier");
+        return false;
+      }
+    } catch (Exception e) {
+      // method throws exception when it shouldn't
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your getAssignment() method threw an exception when"
+          + " passed valid inputs");
+      return false;
+    }
+
+
     // If all tests pass, return true
     return true;
   }
