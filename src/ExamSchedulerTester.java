@@ -4,6 +4,7 @@ public class ExamSchedulerTester {
     //Running tests
     System.out.println("testCourse(): " + testCourse());
     System.out.println("testRoom(): " + testRoom());
+    System.out.println("testAssignCourse(): " + testAssignCourse());
     System.out.println("testScheduleAccessors(): " + testScheduleAccessors());
   }
 
@@ -17,10 +18,8 @@ public class ExamSchedulerTester {
   }
 
   public static boolean testScheduleAccessors() {
-
     // todo
-    return testScheduleAccessorsValidInputTester() /*&& testScheduleAccessorsInvalidInputTester
-    ()*/;
+    return testScheduleAccessorsValidInputTester() && testScheduleAccessorsInvalidInputTester();
   }
 
   public static boolean testAssignCourse() {
@@ -286,6 +285,7 @@ public class ExamSchedulerTester {
     Course testCourse;
     Room testRoom;
     Schedule testSchedule;
+    String expectedString;
 
     /*
     The functionality of the constructor will be indirectly tested by testing the methods of
@@ -432,8 +432,8 @@ public class ExamSchedulerTester {
 
       // Assigning each course to a room
       testSchedule = testSchedule.assignCourse(0, 0);
-      testSchedule =  testSchedule.assignCourse(1, 1);
-      testSchedule =  testSchedule.assignCourse(2, 2);
+      testSchedule = testSchedule.assignCourse(1, 1);
+      testSchedule = testSchedule.assignCourse(2, 2);
       testSchedule = testSchedule.assignCourse(3, 3);
       testSchedule = testSchedule.assignCourse(4, 4);
 
@@ -483,23 +483,394 @@ public class ExamSchedulerTester {
       return false;
     }
 
+    // Test 6: Testing the toString method
+
+    // Assigning Variables
+    testCourses =
+        new Course[] {new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20)};
+    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
+        new Room("HUM " + "3650", 200)};
+    expectedString = "{CS300: AG 125, CS200: HUM 3650, CS400: Unassigned}";
+
+    // Testing
+    try {
+      // Creating new Schedule Object
+      testSchedule = new Schedule(testRooms, testCourses);
+
+      // Assigning course
+      testSchedule = testSchedule.assignCourse(0, 0);
+      testSchedule = testSchedule.assignCourse(1, 2);
+
+      // Condition: Making sure that the toString method returns the contents of the Schedule
+      // Object in the right Notation
+      if (!testSchedule.toString().equals(expectedString)) {
+        System.out.println("Problem Detected: Your toString method does not return the right "
+            + "String when passed valid inputs");
+        return false;
+      }
+    } catch (IllegalArgumentException e) {
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your toString() method in Schedule threw an "
+          + "exception when passed valid inputs");
+      return false;
+    }
 
     // If all tests pass, return true
     return true;
   }
 
   private static boolean testScheduleAccessorsInvalidInputTester() {
+    // Defining local variables
+    Course[] testCourses;
+    Room[] testRooms;
+    Course testCourse;
+    Room testRoom;
+    Schedule testSchedule;
+
+    // Define test scenarios
+    // Test 1: getRoom() gives index out bounds exception if the the index is negative or more
+    // than equal to the length of the Course Array
+
+    // Assigning variables
+    testCourses =
+        new Course[] {new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20)};
+    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
+        new Room("HUM " + "3650", 200)};
+
+    // Testing
+    try {
+      // Expected: getCourse() throws an IndexOutOfBoundsException with a descriptive message
+      // Creating a new Schedule Object
+      testSchedule = new Schedule(testRooms, testCourses);
+
+      // Condition 1 (Try calling the getCourse() method with an invalid index
+      Course tmpCourse = testSchedule.getCourse(5);
+
+      // If this line is reached, the exception is not thrown thus returning false;
+      return false;
+    } catch (IndexOutOfBoundsException e) {
+      // This is the expected behaviour
+      // Checking if the exception was thrown with a descriptive message
+      if (e.getMessage() == null || e.getMessage().length() == 0) {
+        System.out.println("Your method getCourse() throws an IndexOutOfBounds "
+            + "Exception without a descriptive message");
+        return false;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your getCourse() method throws an Exception other "
+          + "than the IndexOutOfBounds Exception when called with an invalid index");
+      return false;
+    }
+
+    // Test 2: getCourse() gives index out bounds exception if the index is negative or more
+    // than equal to the length of the Course Array
+
+    // Assigning variables
+    testCourses =
+        new Course[] {new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20)};
+    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
+        new Room("HUM " + "3650", 200)};
+
+    // Testing
+    try {
+      // Expected: getCourse() throws an IndexOutOfBoundsException with a descriptive message
+      // Creating a new Schedule Object
+      testSchedule = new Schedule(testRooms, testCourses);
+
+      // Condition 1 (Try calling the getCourse() method with an invalid index
+      Room tmpRoom = testSchedule.getRoom(5);
+
+      // If this line is reached, the exception is not thrown thus returning false;
+      return false;
+    } catch (IndexOutOfBoundsException e) {
+      // This is the expected behaviour
+      // Checking if the exception was thrown with a descriptive message
+      if (e.getMessage() == null || e.getMessage().length() == 0) {
+        System.out.println("Your method getRoom() throws an IndexOutOfBounds "
+            + "Exception without a descriptive error message");
+        return false;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your getRoom() method throws an Exception other "
+          + "than the IndexOutOfBounds Exception when called with an invalid index");
+      return false;
+    }
+
+
+    // Test 3: The getAssignment() method throws an IndexOutOfBounds Exception of the integer
+    // passed is invalid
+
+    // Assigning Variables
+    testCourses =
+        new Course[] {new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20)};
+    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
+        new Room("HUM " + "3650", 200)};
+
+    // Testing
+    try {
+      // Expected: getAssignment() throws an IndexOutOfBoundsException with a descriptive message
+      // Creating a new Schedule Object
+      testSchedule = new Schedule(testRooms, testCourses);
+
+      // Condition 1 (Try calling the getAssignment() method with an invalid index)
+      Room tmpRoom = testSchedule.getAssignment(5);
+
+      // If this line is reached, the exception is not thrown thus returning false;
+      return false;
+    } catch (IndexOutOfBoundsException e) {
+      // This is the expected behaviour
+      // Checking if the exception was thrown with a descriptive message
+      if (e.getMessage() == null || e.getMessage().length() == 0) {
+        System.out.println("Your method getAssignment() throws an IndexOutOfBounds "
+            + "Exception with no descriptive message");
+        return false;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.out.println(
+          "Problem Detected: Your getAssignment() method throws an Exception " + "other "
+              + "than the IndexOutOfBounds Exception when called with an invalid index");
+      return false;
+    }
+
+    // Test 4: The getAssignment() method throws an IllegalArgumentException if the course has
+    // not been assigned a room
+
+    //Assigning Values
+    testCourses =
+        new Course[] {new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20)};
+    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
+        new Room("HUM " + "3650", 200)};
+
+    // Testing
+    try {
+      // Creating a new Schedule Object
+      testSchedule = new Schedule(testRooms, testCourses);
+
+      // Calling getAssignment()
+      // Expected: Should throw an IllegalArgumentException
+      Room tmpRoom = testSchedule.getAssignment(1);
+
+      //If this line is reached, then an exception was not thrown thus returning false
+      return false;
+    } catch (IllegalArgumentException e) {
+      // This is the expected behaviour
+      // Checking if the Exception was thrown with a descriptive error message or not
+      if (e.getMessage() == null || e.getMessage().length() == 0) {
+        System.out.println("Problem Detected: Your method getAssignment() threw an "
+            + "IllegalArgumentException without a descriptive error message");
+        return false;
+      }
+    } catch (Exception e) {
+      // Unexpected exception thrown
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your getAssignment() method threw an exception "
+          + "other than an IllegalArgumentException when passed an unassigned course index");
+      return false;
+    }
+
     // todo
-    return false;
+    return true;
   }
 
   private static boolean testAssignCourseValidInputTester() {
+    // Declaring local variables
+    Course[] testCourses;
+    Room[] testRooms;
+    Schedule testSchedule;
+    // Define Test Scenarios
+    // Test 1: Assigning the course and then testing with isAssigned() and the getCapacity()
+    // methods
+
+    // Assigning Variables
+    testCourses =
+        new Course[] {new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20)};
+    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
+        new Room("HUM " + "3650", 200)};
+
+    // Testing
+    try {
+      // Creating a new Schedule Object
+      testSchedule = new Schedule(testRooms, testCourses);
+
+      //Assigning course at index 1 to room at index 2
+      testSchedule = testSchedule.assignCourse(1, 2);
+
+      // Condition 1 (Checking if isAssigned() gives true and checking change in capacity with
+      // getCapacity
+      if (!(testSchedule.isAssigned(1) && (testSchedule.getRoom(2).getCapacity() == 180))) {
+        System.out.println("Problem Detected: Your method assignCourse() does not assign "
+            + "properly or reduce capacity");
+        return false;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your method assignCourse() threw an exception with "
+          + "valid inputs");
+      return false;
+    }
+
     // todo
-    return false;
+    return true;
   }
 
   private static boolean testAssignCourseInvalidInputTester() {
-    // todo
-    return false;
+    // Declaring local variables
+    Course[] testCourses;
+    Room[] testRooms;
+    Schedule testSchedule;
+
+    // Test 1: assignCourse() gives IndexOutOfBounds exception for an invalid course index
+    // Assigning Variables
+    testCourses =
+        new Course[] {new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20)};
+    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
+        new Room("HUM " + "3650", 200)};
+
+    // Testing
+    try {
+      // Creating a new Schedule Object
+      testSchedule = new Schedule(testRooms, testCourses);
+
+      //Assigning course at index 5 (invalid) to room at index 2
+      testSchedule = testSchedule.assignCourse(5, 2);
+
+      // If program continues past this, exception is not passed as expected so returning false
+      System.out.println("Problem Detected: Your assignCourse() method does not throw an "
+          + "exception when passed an invalid course index");
+      return false;
+
+    } catch (IndexOutOfBoundsException e) {
+
+      if (e.getMessage() == null || e.getMessage().length() == 0) {
+        System.out.println("Problem Detected: IndexOutOfBounds Exception does not have a "
+            + "descriptive message");
+        return false;
+      }
+
+    } catch (Exception e) {
+      // wrong exception thrown
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your assignCourse() method threw an exception "
+          + "other than IndexOutOfBoundsException when passed an invalid course index");
+      return false;
+    }
+
+    // Test 2: assignCourse() gives IndexOutOfBounds exception for an invalid room index
+    // Assigning Variables
+    testCourses =
+        new Course[] {new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20)};
+    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
+        new Room("HUM " + "3650", 200)};
+
+    // Testing
+    try {
+      // Creating a new Schedule Object
+      testSchedule = new Schedule(testRooms, testCourses);
+
+      //Assigning course at index 1 to room at index 5 (invalid)
+      testSchedule = testSchedule.assignCourse(1, 5);
+
+      // If program continues past this, exception is not passed as expected so returning false
+      System.out.println("Problem Detected: Your assignCourse() method does not throw an "
+          + "exception when passed an invalid room index");
+      return false;
+
+    } catch (IndexOutOfBoundsException e) {
+
+      if (e.getMessage() == null || e.getMessage().length() == 0) {
+        System.out.println("Problem Detected: IndexOutOfBounds Exception does not have a "
+            + "descriptive message");
+        return false;
+      }
+
+    } catch (Exception e) {
+      // wrong exception thrown
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your assignCourse() method threw an exception "
+          + "other than IndexOutOfBoundsException when passed an invalid room index");
+      return false;
+    }
+
+    // Test 3: assignCourse() gives IllegalArgumentException if the given course has already
+    // been assigned
+    // Assigning Variables
+    testCourses =
+        new Course[] {new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20)};
+    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
+        new Room("HUM " + "3650", 200)};
+
+    // Testing
+    try {
+      // Creating a new Schedule Object
+      testSchedule = new Schedule(testRooms, testCourses);
+
+      //Assigning course at index 1 to room at index 5 (invalid)
+      testSchedule = testSchedule.assignCourse(1, 2);
+      // Assigning it a second time
+      testSchedule = testSchedule.assignCourse(1, 2);
+
+      // If program continues past this, exception is not passed as expected so returning false
+      System.out.println("Problem Detected: Your assignCourse() method does not throw an "
+          + "exception when an already assigned room is assigned again");
+      return false;
+
+    } catch (IllegalArgumentException e) {
+
+      if (e.getMessage() == null || e.getMessage().length() == 0) {
+        System.out.println("Problem Detected: IllegalOutOfBounds Exception does not have a "
+            + "descriptive message");
+        return false;
+      }
+
+    } catch (Exception e) {
+      // wrong exception thrown
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your assignCourse() method threw an exception "
+          + "other than IllegalArgumentException when an already assigned room is assigned "
+          + "again");
+      return false;
+    }
+
+    // Test 4: assignCourse() gives IllegalArgumentException if the given room does not have
+    // sufficient capacity
+    testCourses =
+        new Course[] {new Course("CS300", 20), new Course("CS200", 100), new Course("CS400", 20)};
+    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
+        new Room("HUM " + "3650", 99)};
+
+    // Testing
+    try {
+      // Creating a new Schedule Object
+      testSchedule = new Schedule(testRooms, testCourses);
+
+      //Assigning course at index 1 to room at index 5 (invalid)
+      testSchedule = testSchedule.assignCourse(1, 2);
+
+      // If program continues past this, exception is not passed as expected so returning false
+      System.out.println("Problem Detected: Your assignCourse() method does not throw an "
+          + "exception when called on a room that does not have sufficient capacity");
+      return false;
+
+    } catch (IllegalArgumentException e) {
+
+      if (e.getMessage() == null || e.getMessage().length() == 0) {
+        System.out.println("Problem Detected: IllegalOutOfBounds Exception does not have a "
+            + "descriptive message");
+        return false;
+      }
+
+    } catch (Exception e) {
+      // wrong exception thrown
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your assignCourse() method threw an exception "
+          + "other than IllegalArgumentException when an already assigned room is assigned "
+          + "again");
+      return false;
+    }
+
+    return true;
   }
 }
