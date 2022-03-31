@@ -1,6 +1,6 @@
 public class Course {
   // Defining data fields
-  private String name; // Name of the Course
+  private String name ; // Name of the Course
   private int numStudents; // Number of Students in the course
 
   //Implementing Constructor
