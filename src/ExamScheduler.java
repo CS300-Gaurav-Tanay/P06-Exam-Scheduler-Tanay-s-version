@@ -54,7 +54,7 @@ public class ExamScheduler {
   }
 
   private static ArrayList<Schedule> findAllSchedulesHelper(Schedule schedule, int index) {
-    // Cretaing the ArrayList which will be returned
+    // Creating the ArrayList which will be returned
     ArrayList<Schedule> allSchedules = new ArrayList<>();
 
     // Base Case

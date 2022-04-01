@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class ExamSchedulerTester {
 
   public static void main(String[] args) {
@@ -6,6 +8,8 @@ public class ExamSchedulerTester {
     System.out.println("testRoom(): " + testRoom());
     System.out.println("testAssignCourse(): " + testAssignCourse());
     System.out.println("testScheduleAccessors(): " + testScheduleAccessors());
+    System.out.println("testFindSchedule(): " + testFindSchedule());
+    System.out.println("testFindAllSchedules(): " + testFindAllSchedules());
   }
 
   // Implementing the testCourse() method
@@ -24,6 +28,14 @@ public class ExamSchedulerTester {
 
   public static boolean testAssignCourse() {
     return testAssignCourseValidInputTester() && testAssignCourseInvalidInputTester();
+  }
+
+  public static boolean testFindSchedule() {
+    return testFindScheduleValidInputTester() && testFindScheduleInvalidInputTester();
+  }
+
+  public static boolean testFindAllSchedules(){
+    return testFindAllScheduleValidInputTester() /*&& testFindAllScheduleInvalidInputTester()*/;
   }
 
   private static boolean testCourseValidInputTester() {
@@ -873,4 +885,56 @@ public class ExamSchedulerTester {
 
     return true;
   }
+
+  private static boolean testFindScheduleValidInputTester() {
+    return false;
+  }
+
+  private static boolean testFindScheduleInvalidInputTester() {
+    return false;
+  }
+
+  private static boolean testFindAllScheduleValidInputTester() {
+    // Declaring local variables
+    Course[] testCourses;
+    Room[] testRooms;
+    ArrayList<Schedule> testSchedulesList;
+    String testString = "";
+    // Defining test scenarios
+    // Test 1: Passing in a valid room and course array input and checking if the right output
+    // is returned
+
+    //Assigning Variables
+    testCourses = new Course[]{new Course("CS200", 50), new Course("CS300", 110),
+        new Course("CS400", 75)};
+    testRooms = new Room[]{new Room("Room1", 100), new Room("Room2", 150), new Room(
+        "Room3", 75)};
+
+    // Testing
+    try {
+      testSchedulesList = ExamScheduler.findAllSchedules(testRooms, testCourses);
+      // Converting returned ArrayList into a String for easier comparison
+      for (Schedule testSchedulePointer : testSchedulesList) {
+        testString = testString + testSchedulePointer.toString();
+      }
+      // Condition 1
+      if (!testString.equals("{CS200: Room1, CS300: Room2, CS400: Room3}{CS200: Room3, CS300: "
+          + "Room2, CS400: Room1}")) {
+        System.out.println();
+        return false;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your findAllSchedules() method does not return the "
+          + "expected schedule ");
+      return false;
+    }
+    return true;
+  }
+
+  private static boolean testFindAllScheduleInvalidInputTester() {
+    return false;
+  }
+
+
 }
