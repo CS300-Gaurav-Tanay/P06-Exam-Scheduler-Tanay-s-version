@@ -35,7 +35,7 @@ public class ExamSchedulerTester {
   }
 
   public static boolean testFindAllSchedules(){
-    return testFindAllScheduleValidInputTester() /*&& testFindAllScheduleInvalidInputTester()*/;
+    return testFindAllScheduleValidInputTester() && testFindAllScheduleInvalidInputTester();
   }
 
   private static boolean testCourseValidInputTester() {
@@ -887,11 +887,83 @@ public class ExamSchedulerTester {
   }
 
   private static boolean testFindScheduleValidInputTester() {
-    return false;
+    // Defining local variables
+    Room[] testRooms;
+    Course[] testCourses;
+    Schedule testSchedule;
+    String expectedString;
+
+    // Define test scenarios
+    // Test 1: Valid Inputs with a given solution
+
+    // Assigning variables
+    testCourses = new Course[] {new Course("CS200", 15), new Course("CS300", 90),
+        new Course("CS400", 70)};
+    testRooms = new Room[] {new Room("Noland 168", 75), new Room("Sterling Hall", 100),
+        new Room("Van Vleck", 15)};
+    expectedString = "{CS200: Van Vleck, CS300: Sterling Hall, CS400: Noland 168}";
+
+    // System.out.println(expectedString);
+    // System.out.println(ExamScheduler.findSchedule(testRooms, testCourses).toString());
+    // Expected, a set schedule should be returned.
+    // Testing
+    try {
+      // Condition
+      if (!ExamScheduler.findSchedule(testRooms, testCourses).toString().equals(expectedString)) {
+        System.out.println("Problem Detected: Your method findSchedule() creates a wrong "
+            + "schedule with the valid inputs");
+        return false;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your method findSchedule() gives an error with a "
+          + "set of valid inputs");
+      return false;
+    }
+
+    return true;
   }
 
   private static boolean testFindScheduleInvalidInputTester() {
-    return false;
+    // Declaring local variables
+    Room[] testRooms;
+    Course[] testCourses;
+    Schedule testSchedule;
+
+    // Define test scenarios
+    // Test 1: Making sure exception is thrown wih a set of invalid inputs from which no
+    // schedule can be made
+
+    // Assigning variables
+    testRooms = new Room[]{new Room("Noland 168", 14), new Room("AG Hall", 14), new Room(
+        "Brogden Psychology", 14)};
+    testCourses = new Course[]{new Course("CS200", 15), new Course("CS300", 15), new Course(
+        "CS400", 15)};
+
+    // Testing
+    try {
+      testSchedule = ExamScheduler.findSchedule(testRooms, testCourses);
+
+      // If this line has been reached, the error has not been thrown properly so returning false
+      return false;
+    } catch (IllegalStateException e) {
+      // expected
+      // Checking if the exception had a descriptive message
+      if (e.getMessage() == null || e.getMessage().length() == 0) {
+        System.out.println("Problem Detected: Your method findSchedule() does not have a "
+            + "descriptive message wih the exception it throws");
+        return false;
+      }
+    } catch (Exception e) {
+      // Unexpected: Some other exception was thrown
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your method findSchedule() threw an exception other "
+          + "than an "
+          + "illegalStateException when called with invalid inputs");
+    }
+
+
+    return true;
   }
 
   private static boolean testFindAllScheduleValidInputTester() {
@@ -933,7 +1005,38 @@ public class ExamSchedulerTester {
   }
 
   private static boolean testFindAllScheduleInvalidInputTester() {
-    return false;
+    // Defining local variables
+    Room[] testRooms;
+    Course[] testCourses;
+    ArrayList<Schedule> testScheduleList;
+
+    // Define test scenarios
+    // Test 1: Assigning the variables
+    testRooms = new Room[]{new Room("Noland 168", 14), new Room("AG Hall", 14), new Room(
+        "Brogden Psychology", 14)};
+    testCourses = new Course[]{new Course("CS200", 15), new Course("CS300", 15), new Course(
+        "CS400", 15)};
+
+    // Testing
+    try {
+      // Expected: The method should return an empty exception
+      testScheduleList = ExamScheduler.findAllSchedules(testRooms, testCourses);
+
+      // Condition
+      if (testScheduleList.size() != 0) {
+        System.out.println("Problem Detected: Your findAllSchedules method does not return an "
+            + "empty ArrayList with invalid inputs");
+        return false;
+      }
+    } catch (Exception e) {
+      // method passes an exception when  it shouldn't
+      e.printStackTrace();
+      System.out.println("Problem Detected: Your findAllSchedules method returns an exception "
+          + "when it shouldn't (with invalid inputs)");
+      return false;
+    }
+
+    return true;
   }
 
 

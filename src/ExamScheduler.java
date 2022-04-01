@@ -46,7 +46,7 @@ public class ExamScheduler {
           }
       }
     }
-    throw new IllegalStateException();
+    throw new IllegalStateException("Schedule Invalid");
   }
 
   public static ArrayList<Schedule> findAllSchedules(Room[] rooms, Course[] courses) {
