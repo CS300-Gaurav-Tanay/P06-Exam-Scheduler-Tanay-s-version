@@ -24,9 +24,15 @@
 // Online Sources:  YouTube Videos
 //
 
-
 /**
+ * This class is a data container for a Room with properties like locationa and capacity and
+ * getters methods for the same
  *
+ * @author tanaynagar
+ * @author gmchopra
+ * @author mounakacem
+ * @author legault
+ * @version 1.0
  */
 public class Room {
   //Defining data fields
@@ -34,6 +40,14 @@ public class Room {
   private int capacity; // max number of people the room can handle
 
   //Constructor
+
+  /**
+   * Constructor for the Room Class which is called whenever a new Room Object has been created.
+   *
+   * @param location location of the room
+   * @param capacity capacity of the room
+   * @throws IllegalArgumentException when the int value passed in less than 0 (capacity  0)
+   */
   public Room(String location, int capacity) throws IllegalArgumentException {
     // Checking if the provided integer is negative
     if (capacity < 0) {
@@ -46,14 +60,32 @@ public class Room {
 
   } // constructor ends
 
+  /**
+   * Getter method for location of the room
+   *
+   * @return (String) location of the room
+   */
   public String getLocation() {
     return this.location;
   } // getLocation() ends
 
+  /**
+   * Getter method for the capacity of the room
+   *
+   * @return (int) capacity of the room
+   */
   public int getCapacity() {
     return this.capacity;
   } // getCapacity() ends
 
+  /**
+   * Reduces the capacity of a room by the number of Students in a given course assigned to it
+   *
+   * @param numToReduce (int) The value by which the capacity of the room should be reduced
+   * @return (Room) new Room Object with the reduced capacity
+   * @throws IllegalArgumentException when the number of students in the course is more than the
+   *                                  capacity of the room
+   */
   public Room reduceCapacity(int numToReduce) throws IllegalArgumentException {
     // Declaring local variables
     Room objToReturn;
