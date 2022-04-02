@@ -54,7 +54,6 @@ public class ExamScheduler {
     return ExamScheduler.findScheduleHelper(scheduleToPass, 0);
   }
 
-
   /**
    * recursive method that assigns all unassigned courses in a Schedule beginning from the index
    * provided as an argument
