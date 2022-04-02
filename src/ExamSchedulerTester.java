@@ -14,25 +14,34 @@
 // Partner Lecturer's Name: Mouna Kcem
 //
 // VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
-//   _X_ Write-up states that pair programming is allowed for this assignment.
-//   _X_ We have both read and understand the course Pair Programming Policy.
-//   _X_ We have registered our team prior to the team registration deadline.
+//   X Write-up states that pair programming is allowed for this assignment.
+//   X We have both read and understand the course Pair Programming Policy.
+//   X We have registered our team prior to the team registration deadline.
 //
 ///////////////////////// ALWAYS CREDIT OUTSIDE HELP //////////////////////////
 //
 // Persons:         Avicenna Hartojo Tirtosuharto
 // Online Sources:  YouTube Videos
-//
+////////////////////////////////////////////////////////////////////////////////
 
 import java.util.ArrayList;
 
 /**
- *
+ * This class contains several test cases in order to make sure that the methods
+ * and constructors present in the Course, Room, Schedule, and ExamScheduler
+ * classes function properly
  */
 public class ExamSchedulerTester {
 
+  /**
+   * Main method
+   *
+   * Calls all the tester methods defined in this class and prints their output
+   *
+   * @param args input arguments if any
+   */
   public static void main(String[] args) {
-    //Running tests
+    // Running tests
     System.out.println("testCourse(): " + testCourse());
     System.out.println("testRoom(): " + testRoom());
     System.out.println("testAssignCourse(): " + testAssignCourse());
@@ -41,50 +50,76 @@ public class ExamSchedulerTester {
     System.out.println("testFindAllSchedules(): " + testFindAllSchedules());
   }
 
-  // Implementing the testCourse() method
+  /**
+   * Checks the functionality of the methods and constructor within the Course
+   * class
+   */
   public static boolean testCourse() {
     return testCourseValidInputTester() && testCourseInvalidInputTester();
   } // testCourse ends
 
+  /**
+   * Checks the functionality of the methods and constructor within the Room class
+   */
   public static boolean testRoom() {
     return testRoomValidInputTester() && testRoomInvalidInputTester();
-  }
+  }// testRoom ends
 
+  /**
+   * Checks the functionality of the methods and constructor within the Schedule
+   * class
+   */
   public static boolean testScheduleAccessors() {
-    // todo
     return testScheduleAccessorsValidInputTester() && testScheduleAccessorsInvalidInputTester();
   }
 
+  /**
+   * Checks the functionality of the assignCourse() within the Schedule class
+   */
   public static boolean testAssignCourse() {
     return testAssignCourseValidInputTester() && testAssignCourseInvalidInputTester();
   }
 
+  /**
+   * Checks the functionality of the testFindSchedule() method within the
+   * ExamSchedule class
+   */
   public static boolean testFindSchedule() {
     return testFindScheduleValidInputTester() && testFindScheduleInvalidInputTester();
   }
 
-  public static boolean testFindAllSchedules(){
+  /**
+   * Checks the functionality of the testFindAllSchedule() method within the
+   * ExamSchedule class
+   */
+  public static boolean testFindAllSchedules() {
     return testFindAllScheduleValidInputTester() && testFindAllScheduleInvalidInputTester();
   }
 
+  /**
+   * Checks whether the methods and constructors within the Course class work as
+   * expected when passed valid input
+   */
   private static boolean testCourseValidInputTester() {
-    //Defining local variables
+    // Defining local variables
     String testName; // String parameter for testing testCourse
     int testNumStudents; // int parameter for testng testCourse
-    Course testObj; //Object to test course with
+    Course testObj; // Object to test course with
 
     // Define test case
-    //Test 1: getName() correctly returns String value of name which was initialized using
+    // Test 1: getName() correctly returns String value of name which was
+    // initialized using
     // the constructor
     // Assigning values to variables
     testName = "CS300";
     testNumStudents = 1000;
-    //Testing
+    // Testing
     try {
       // Creating Course Object with test Values
       testObj = new Course(testName, testNumStudents);
 
-      //Checking test condition if the getName methods returns name of course correctly
+      // Checking test condition if the getName methods returns name of course
+      // correctly
       if (!(testObj.getName().equals(testName))) {
         System.out.println("Problem Detected: Your getName() method does not return the String "
             + "variable that was passed to it at Object Creation");
@@ -98,17 +133,19 @@ public class ExamSchedulerTester {
       return false;
     }
 
-    // Test 2: getNumStudents() correctly returns the int value of the numStudents variable
+    // Test 2: getNumStudents() correctly returns the int value of the numStudents
+    // variable
     // which was initialized/set using the class' parameterized constructor
     // Assigning values to variables
     testName = "CS300";
     testNumStudents = 1000;
-    //Testing
+    // Testing
     try {
       // Creating Course Object with test Values
       testObj = new Course(testName, testNumStudents);
 
-      //Checking test condition if the getName methods returns name of course correctly
+      // Checking test condition if the getName methods returns name of course
+      // correctly
       if (testObj.getNumStudents() != testNumStudents) {
         System.out.println("Problem Detected: Your getNumStudents() method does not return the "
             + "int variable that was passed to it at Object Creation" + " ");
@@ -117,30 +154,35 @@ public class ExamSchedulerTester {
     } catch (Exception e) {
       // the object creation should not throw an exception. Returning false if it does
       e.printStackTrace();
-      System.out.println("Your Course class's getNumStudents method threw an exception when it "
-          + "shouldn't have");
+      System.out.println(
+          "Your Course class's getNumStudents method threw an exception when it " + "shouldn't have");
       return false;
     }
     // All the above tests passed so returning true
     return true;
   }
 
+  /**
+   * Checks whether the methods and constructors within the Course class work as
+   * expected when passed invalid input
+   */
   private static boolean testCourseInvalidInputTester() {
-    //Defining local variables
+    // Defining local variables
     String testName; // String parameter for testing testCourse
     int testNumStudents; // int parameter for testng testCourse
-    Course testObj; //Object to test course with
+    Course testObj; // Object to test course with
 
     // Define test case (test case 1 and 2 in ValidInputTester)
     // Test 3: Constructor throws an IllegalArgumentException (when int value < 0)
     // Assigning appropriate values to variables
     testName = "CS 300";
-    testNumStudents = -1; //negative value
-    //Testing
+    testNumStudents = -1; // negative value
+    // Testing
     try {
       // Course Object Creation
       testObj = new Course(testName, testNumStudents);
-      // Expected: Constructor should throw an IllegalArgument Exception since value of
+      // Expected: Constructor should throw an IllegalArgument Exception since value
+      // of
       // numStudents is negative
       System.out.println("Problem Detected: Your class Course's constructor does not throw an "
           + "exception when it should");
@@ -160,6 +202,10 @@ public class ExamSchedulerTester {
     return true;
   }
 
+  /**
+   * Checks whether the methods and constructors within the Room class work as
+   * expected when passed valid input
+   */
   private static boolean testRoomValidInputTester() {
     // Defining local variables
     String testLocation;
@@ -169,7 +215,8 @@ public class ExamSchedulerTester {
     int reducedCapacity;
 
     // Define test cases
-    // Test 1: Make sure the constructor sets the location of the room correctly and it is
+    // Test 1: Make sure the constructor sets the location of the room correctly and
+    // it is
     // correctly returned by the getLocation() method
     // Initializing Variables
     testLocation = "Noland 168";
@@ -186,12 +233,13 @@ public class ExamSchedulerTester {
       }
     } catch (Exception e) {
       e.printStackTrace();
-      System.out.println("Problem Detected: Your method getLocation() threw an exception when "
-          + "it shouldn't have");
+      System.out.println(
+          "Problem Detected: Your method getLocation() threw an exception when " + "it shouldn't have");
       return false;
     }
 
-    // Test 2: Make sure the constructor sets the capacity of the room correctly and it is
+    // Test 2: Make sure the constructor sets the capacity of the room correctly and
+    // it is
     // correctly returned by the getCapacity() method
     // Initializing Variables
     testLocation = "Noland 168";
@@ -208,8 +256,8 @@ public class ExamSchedulerTester {
       }
     } catch (Exception e) {
       e.printStackTrace();
-      System.out.println("Problem Detected: Your method getCapacity() threw an exception when "
-          + "it shouldn't have");
+      System.out.println(
+          "Problem Detected: Your method getCapacity() threw an exception when " + "it shouldn't have");
       return false;
     }
 
@@ -219,7 +267,7 @@ public class ExamSchedulerTester {
     testCapacity = 258;
     numToReduce = 18;
     reducedCapacity = testCapacity - numToReduce;
-    //Testing
+    // Testing
     try {
       // Object Creation
       testObj = new Room(testLocation, testCapacity);
@@ -233,14 +281,18 @@ public class ExamSchedulerTester {
       }
     } catch (Exception e) {
       e.printStackTrace();
-      System.out.println("Problem Detected: Your method reducedCapacity() threw an Exception "
-          + "when it was being tested");
+      System.out.println(
+          "Problem Detected: Your method reducedCapacity() threw an Exception " + "when it was being tested");
       return false;
     }
     // If this line is reached, all above tests pass and so true is returned
     return true;
   }
 
+  /**
+   * Checks whether the methods and constructors within the Room class work as
+   * expected when passed invalid input
+   */
   private static boolean testRoomInvalidInputTester() {
     // Defining local variables
     String testLocation;
@@ -250,16 +302,18 @@ public class ExamSchedulerTester {
     int reducedCapacity;
 
     // Define test cases (test 4 and 5)
-    // Test 4: Check if the right exception is passed by the constructor when the integer
+    // Test 4: Check if the right exception is passed by the constructor when the
+    // integer
     // passed in is negative
     // Assigning test variables
     testLocation = "Noland 168";
     testCapacity = -1; // negative
-    //Testing
+    // Testing
     try {
       // Object Creation
       testObj = new Room(testLocation, testCapacity);
-      // Expected: Constructor should throw an IllegalArgumentException with a descriptive
+      // Expected: Constructor should throw an IllegalArgumentException with a
+      // descriptive
       // error message
       // If this line is reached, then the exception is not thrown so returning false
       System.out.println("Problem Detected: Your constructor did not throw an exception when "
@@ -281,7 +335,8 @@ public class ExamSchedulerTester {
       return false;
     }
 
-    // Test 5: Check if the right exception with a descriptive error message is passed when
+    // Test 5: Check if the right exception with a descriptive error message is
+    // passed when
     // argument is greater than the given room’s capacity
     // Assigning test variables
     testLocation = "Noland 168";
@@ -294,7 +349,8 @@ public class ExamSchedulerTester {
       testObj = new Room(testLocation, testCapacity);
       // Calling the reduceCapacity() method
       testObj.reduceCapacity(numToReduce);
-      // Expected: The reduceCapacity() method should throw an IllegalArgumentException
+      // Expected: The reduceCapacity() method should throw an
+      // IllegalArgumentException
       System.out.println("Problem Detected: Your method reduceCapacity() does not throw an "
           + "exception when the integer argument passed to it is bigger than its given capacity");
       return false;
@@ -318,6 +374,10 @@ public class ExamSchedulerTester {
     return true;
   }
 
+  /**
+   * Checks whether the methods and constructors within the Schedule class work as
+   * expected when passed valid input
+   */
   private static boolean testScheduleAccessorsValidInputTester() {
     // Declaring local variables
     Course[] testCourses;
@@ -329,26 +389,29 @@ public class ExamSchedulerTester {
     String expectedString;
 
     /*
-    The functionality of the constructor will be indirectly tested by testing the methods of
-    the class Schedule
+     * The functionality of the constructor will be indirectly tested by testing the
+     * methods of the class Schedule
      */
 
     // Define test scenarios
 
-    // Test 1: Makes sure the constructor correctly initializes the course array to the right
+    // Test 1: Makes sure the constructor correctly initializes the course array to
+    // the right
     // number of elements and at the same array too.
 
     // Assigning variables
     testCourse = new Course("CS 200", 254);
-    testCourses = new Course[] {null, null, null, testCourse, null};
-    testRooms = new Room[] {null, null, new Room("Noland 168", 280), null, null};
+    testCourses = new Course[] { null, null, null, testCourse, null };
+    testRooms = new Room[] { null, null, new Room("Noland 168", 280), null, null };
 
-    // Expected: Constructors correctly sets the array passed to it as data fields in the
-    // class and constructor initializes an assignments array of the same length as the course
+    // Expected: Constructors correctly sets the array passed to it as data fields
+    // in the
+    // class and constructor initializes an assignments array of the same length as
+    // the course
 
     // Testing
     try {
-      //Creating new schedule Object
+      // Creating new schedule Object
       testSchedule = new Schedule(testRooms, testCourses);
 
       // Condition 1 (getNumCourses() works)
@@ -373,21 +436,24 @@ public class ExamSchedulerTester {
       return false;
     }
 
-    // Test 2: Make sure that the constructor correctly initializes the room array to the
+    // Test 2: Make sure that the constructor correctly initializes the room array
+    // to the
     // correct number of elements and the right elements
 
     // Assigning Variables
     testRoom = new Room("Noland 168", 280);
     testCourse = new Course("CS 200", 254);
-    testCourses = new Course[] {null, null, null, testCourse, null};
-    testRooms = new Room[] {null, null, testRoom, null, null};
+    testCourses = new Course[] { null, null, null, testCourse, null };
+    testRooms = new Room[] { null, null, testRoom, null, null };
 
-    // Expected: Constructors correctly sets the array passed to it as data fields in the
-    // class and constructor initializes an assignments array of the same length as the course
+    // Expected: Constructors correctly sets the array passed to it as data fields
+    // in the
+    // class and constructor initializes an assignments array of the same length as
+    // the course
 
     // Testing
     try {
-      //Creating new Schedule Object
+      // Creating new Schedule Object
       testSchedule = new Schedule(testRooms, testCourses);
 
       // Condition 1 (getNumRooms() returns the size of the array)
@@ -411,32 +477,34 @@ public class ExamSchedulerTester {
       return false;
     }
 
-    //Test 3: Testing the isAssigned() method
+    // Test 3: Testing the isAssigned() method
 
     // Assigning the variables
     testRoom = new Room("Noland 168", 280);
     testCourse = new Course("CS 200", 254);
-    testCourses = new Course[] {null, null, null, testCourse, null};
-    testRooms = new Room[] {null, null, testRoom, null, null};
+    testCourses = new Course[] { null, null, null, testCourse, null };
+    testRooms = new Room[] { null, null, testRoom, null, null };
 
-    //Testing
+    // Testing
     try {
       // Creating a new Schedule
       testSchedule = new Schedule(testRooms, testCourses);
 
-      // Condition 1 (isAssigned() returns false for an unassigned room for a newly created
+      // Condition 1 (isAssigned() returns false for an unassigned room for a newly
+      // created
       // Schedule Object)
       if (testSchedule.isAssigned(3)) {
         // If isAssigned() returns true
-        System.out.println("Problem Detected: Your isAssigned() method returns true for an "
-            + "unassigned course too");
+        System.out.println(
+            "Problem Detected: Your isAssigned() method returns true for an " + "unassigned course too");
         return false;
       }
 
       // Assigning the room at index 2 to the course at index 3
       testSchedule = testSchedule.assignCourse(3, 2);
 
-      //Condition 2 (isAssigned() should return true now that the course has been assigned a room
+      // Condition 2 (isAssigned() should return true now that the course has been
+      // assigned a room
       if (!testSchedule.isAssigned(3)) {
         // If isAssigned() returns false
         System.out.println("Problem Detected: Your isAssigned() course returns fals for a room "
@@ -455,15 +523,16 @@ public class ExamSchedulerTester {
     // Assigning the variables
     testRoom = new Room("Noland 168", 280);
     testCourse = new Course("CS 200", 254);
-    testCourses = new Course[] {testCourse, testCourse, testCourse, testCourse, testCourse};
-    testRooms = new Room[] {testRoom, testRoom, testRoom, testRoom, testRoom};
+    testCourses = new Course[] { testCourse, testCourse, testCourse, testCourse, testCourse };
+    testRooms = new Room[] { testRoom, testRoom, testRoom, testRoom, testRoom };
 
     // Testing
     try {
       // Creating new Schedule Object
       testSchedule = new Schedule(testRooms, testCourses);
 
-      // Condition 1 (Checking if isComplete() gives false for a newly created schedule Object
+      // Condition 1 (Checking if isComplete() gives false for a newly created
+      // schedule Object
       if (testSchedule.isComplete()) {
         // If isComplete() returns true
         System.out.println("Problem Detected: Your isComplete() returns true even when all of "
@@ -488,20 +557,20 @@ public class ExamSchedulerTester {
       }
     } catch (IllegalArgumentException e) {
       e.printStackTrace();
-      System.out.println("Problem Detected: Your isComplete() method threw an exception whe it "
-          + "should have not");
+      System.out.println(
+          "Problem Detected: Your isComplete() method threw an exception whe it " + "should have not");
       return false;
     }
 
     // Test 5: Testing the getAssignment() method
 
-    //Assigning the variables
+    // Assigning the variables
     testRoom = new Room("Noland 168", 280);
     testCourse = new Course("CS 200", 254);
-    testCourses = new Course[] {null, null, null, testCourse, null};
-    testRooms = new Room[] {null, null, testRoom, null, null};
+    testCourses = new Course[] { null, null, null, testCourse, null };
+    testRooms = new Room[] { null, null, testRoom, null, null };
 
-    //Testing
+    // Testing
     try {
       // Create a new Schedule Object
       testSchedule = new Schedule(testRooms, testCourses);
@@ -509,7 +578,8 @@ public class ExamSchedulerTester {
       // Assigning course at index 3 to room at index 2
       testSchedule = testSchedule.assignCourse(3, 2);
 
-      // Condition 1 (Checking if getAssignment() returns back the same room Object which was
+      // Condition 1 (Checking if getAssignment() returns back the same room Object
+      // which was
       // assigned with the statement above
       if (!(testSchedule.getAssignment(3).getLocation().equals(testRoom.getLocation()))) {
         System.out.println("Problem Detected: Your getAssignment() method does not return the "
@@ -519,18 +589,16 @@ public class ExamSchedulerTester {
     } catch (Exception e) {
       // method throws exception when it shouldn't
       e.printStackTrace();
-      System.out.println("Problem Detected: Your getAssignment() method threw an exception when"
-          + " passed valid inputs");
+      System.out.println(
+          "Problem Detected: Your getAssignment() method threw an exception when" + " passed valid inputs");
       return false;
     }
 
     // Test 6: Testing the toString method
 
     // Assigning Variables
-    testCourses =
-        new Course[] {new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20)};
-    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
-        new Room("HUM " + "3650", 200)};
+    testCourses = new Course[] { new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20) };
+    testRooms = new Room[] { new Room("AG 125", 200), new Room("Noland 168", 200), new Room("HUM " + "3650", 200) };
     expectedString = "{CS300: AG 125, CS200: HUM 3650, CS400: Unassigned}";
 
     // Testing
@@ -542,7 +610,8 @@ public class ExamSchedulerTester {
       testSchedule = testSchedule.assignCourse(0, 0);
       testSchedule = testSchedule.assignCourse(1, 2);
 
-      // Condition: Making sure that the toString method returns the contents of the Schedule
+      // Condition: Making sure that the toString method returns the contents of the
+      // Schedule
       // Object in the right Notation
       if (!testSchedule.toString().equals(expectedString)) {
         System.out.println("Problem Detected: Your toString method does not return the right "
@@ -560,6 +629,10 @@ public class ExamSchedulerTester {
     return true;
   }
 
+  /**
+   * Checks whether the methods and constructors within the Schedule class work as
+   * expected when passed invalid input
+   */
   private static boolean testScheduleAccessorsInvalidInputTester() {
     // Defining local variables
     Course[] testCourses;
@@ -569,18 +642,18 @@ public class ExamSchedulerTester {
     Schedule testSchedule;
 
     // Define test scenarios
-    // Test 1: getRoom() gives index out bounds exception if the the index is negative or more
+    // Test 1: getRoom() gives index out bounds exception if the the index is
+    // negative or more
     // than equal to the length of the Course Array
 
     // Assigning variables
-    testCourses =
-        new Course[] {new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20)};
-    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
-        new Room("HUM " + "3650", 200)};
+    testCourses = new Course[] { new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20) };
+    testRooms = new Room[] { new Room("AG 125", 200), new Room("Noland 168", 200), new Room("HUM " + "3650", 200) };
 
     // Testing
     try {
-      // Expected: getCourse() throws an IndexOutOfBoundsException with a descriptive message
+      // Expected: getCourse() throws an IndexOutOfBoundsException with a descriptive
+      // message
       // Creating a new Schedule Object
       testSchedule = new Schedule(testRooms, testCourses);
 
@@ -604,18 +677,18 @@ public class ExamSchedulerTester {
       return false;
     }
 
-    // Test 2: getCourse() gives index out bounds exception if the index is negative or more
+    // Test 2: getCourse() gives index out bounds exception if the index is negative
+    // or more
     // than equal to the length of the Course Array
 
     // Assigning variables
-    testCourses =
-        new Course[] {new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20)};
-    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
-        new Room("HUM " + "3650", 200)};
+    testCourses = new Course[] { new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20) };
+    testRooms = new Room[] { new Room("AG 125", 200), new Room("Noland 168", 200), new Room("HUM " + "3650", 200) };
 
     // Testing
     try {
-      // Expected: getCourse() throws an IndexOutOfBoundsException with a descriptive message
+      // Expected: getCourse() throws an IndexOutOfBoundsException with a descriptive
+      // message
       // Creating a new Schedule Object
       testSchedule = new Schedule(testRooms, testCourses);
 
@@ -639,19 +712,18 @@ public class ExamSchedulerTester {
       return false;
     }
 
-
-    // Test 3: The getAssignment() method throws an IndexOutOfBounds Exception of the integer
+    // Test 3: The getAssignment() method throws an IndexOutOfBounds Exception of
+    // the integer
     // passed is invalid
 
     // Assigning Variables
-    testCourses =
-        new Course[] {new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20)};
-    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
-        new Room("HUM " + "3650", 200)};
+    testCourses = new Course[] { new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20) };
+    testRooms = new Room[] { new Room("AG 125", 200), new Room("Noland 168", 200), new Room("HUM " + "3650", 200) };
 
     // Testing
     try {
-      // Expected: getAssignment() throws an IndexOutOfBoundsException with a descriptive message
+      // Expected: getAssignment() throws an IndexOutOfBoundsException with a
+      // descriptive message
       // Creating a new Schedule Object
       testSchedule = new Schedule(testRooms, testCourses);
 
@@ -670,20 +742,18 @@ public class ExamSchedulerTester {
       }
     } catch (Exception e) {
       e.printStackTrace();
-      System.out.println(
-          "Problem Detected: Your getAssignment() method throws an Exception " + "other "
-              + "than the IndexOutOfBounds Exception when called with an invalid index");
+      System.out.println("Problem Detected: Your getAssignment() method throws an Exception " + "other "
+          + "than the IndexOutOfBounds Exception when called with an invalid index");
       return false;
     }
 
-    // Test 4: The getAssignment() method throws an IllegalArgumentException if the course has
+    // Test 4: The getAssignment() method throws an IllegalArgumentException if the
+    // course has
     // not been assigned a room
 
-    //Assigning Values
-    testCourses =
-        new Course[] {new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20)};
-    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
-        new Room("HUM " + "3650", 200)};
+    // Assigning Values
+    testCourses = new Course[] { new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20) };
+    testRooms = new Room[] { new Room("AG 125", 200), new Room("Noland 168", 200), new Room("HUM " + "3650", 200) };
 
     // Testing
     try {
@@ -694,7 +764,8 @@ public class ExamSchedulerTester {
       // Expected: Should throw an IllegalArgumentException
       Room tmpRoom = testSchedule.getAssignment(1);
 
-      //If this line is reached, then an exception was not thrown thus returning false
+      // If this line is reached, then an exception was not thrown thus returning
+      // false
       return false;
     } catch (IllegalArgumentException e) {
       // This is the expected behaviour
@@ -716,30 +787,34 @@ public class ExamSchedulerTester {
     return true;
   }
 
+  /**
+   * Specifically checks whether the AssignCourse method in the Schedule class
+   * works as expected when passed valid input
+   */
   private static boolean testAssignCourseValidInputTester() {
     // Declaring local variables
     Course[] testCourses;
     Room[] testRooms;
     Schedule testSchedule;
     // Define Test Scenarios
-    // Test 1: Assigning the course and then testing with isAssigned() and the getCapacity()
+    // Test 1: Assigning the course and then testing with isAssigned() and the
+    // getCapacity()
     // methods
 
     // Assigning Variables
-    testCourses =
-        new Course[] {new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20)};
-    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
-        new Room("HUM " + "3650", 200)};
+    testCourses = new Course[] { new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20) };
+    testRooms = new Room[] { new Room("AG 125", 200), new Room("Noland 168", 200), new Room("HUM " + "3650", 200) };
 
     // Testing
     try {
       // Creating a new Schedule Object
       testSchedule = new Schedule(testRooms, testCourses);
 
-      //Assigning course at index 1 to room at index 2
+      // Assigning course at index 1 to room at index 2
       testSchedule = testSchedule.assignCourse(1, 2);
 
-      // Condition 1 (Checking if isAssigned() gives true and checking change in capacity with
+      // Condition 1 (Checking if isAssigned() gives true and checking change in
+      // capacity with
       // getCapacity
       if (!(testSchedule.isAssigned(1) && (testSchedule.getRoom(2).getCapacity() == 180))) {
         System.out.println("Problem Detected: Your method assignCourse() does not assign "
@@ -748,8 +823,8 @@ public class ExamSchedulerTester {
       }
     } catch (Exception e) {
       e.printStackTrace();
-      System.out.println("Problem Detected: Your method assignCourse() threw an exception with "
-          + "valid inputs");
+      System.out
+          .println("Problem Detected: Your method assignCourse() threw an exception with " + "valid inputs");
       return false;
     }
 
@@ -757,28 +832,32 @@ public class ExamSchedulerTester {
     return true;
   }
 
+  /**
+   * Specifically checks whether the AssignCourse method in the Schedule class
+   * works as expected when passed invalid input
+   */
   private static boolean testAssignCourseInvalidInputTester() {
     // Declaring local variables
     Course[] testCourses;
     Room[] testRooms;
     Schedule testSchedule;
 
-    // Test 1: assignCourse() gives IndexOutOfBounds exception for an invalid course index
+    // Test 1: assignCourse() gives IndexOutOfBounds exception for an invalid course
+    // index
     // Assigning Variables
-    testCourses =
-        new Course[] {new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20)};
-    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
-        new Room("HUM " + "3650", 200)};
+    testCourses = new Course[] { new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20) };
+    testRooms = new Room[] { new Room("AG 125", 200), new Room("Noland 168", 200), new Room("HUM " + "3650", 200) };
 
     // Testing
     try {
       // Creating a new Schedule Object
       testSchedule = new Schedule(testRooms, testCourses);
 
-      //Assigning course at index 5 (invalid) to room at index 2
+      // Assigning course at index 5 (invalid) to room at index 2
       testSchedule = testSchedule.assignCourse(5, 2);
 
-      // If program continues past this, exception is not passed as expected so returning false
+      // If program continues past this, exception is not passed as expected so
+      // returning false
       System.out.println("Problem Detected: Your assignCourse() method does not throw an "
           + "exception when passed an invalid course index");
       return false;
@@ -786,8 +865,8 @@ public class ExamSchedulerTester {
     } catch (IndexOutOfBoundsException e) {
 
       if (e.getMessage() == null || e.getMessage().length() == 0) {
-        System.out.println("Problem Detected: IndexOutOfBounds Exception does not have a "
-            + "descriptive message");
+        System.out.println(
+            "Problem Detected: IndexOutOfBounds Exception does not have a " + "descriptive message");
         return false;
       }
 
@@ -799,22 +878,22 @@ public class ExamSchedulerTester {
       return false;
     }
 
-    // Test 2: assignCourse() gives IndexOutOfBounds exception for an invalid room index
+    // Test 2: assignCourse() gives IndexOutOfBounds exception for an invalid room
+    // index
     // Assigning Variables
-    testCourses =
-        new Course[] {new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20)};
-    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
-        new Room("HUM " + "3650", 200)};
+    testCourses = new Course[] { new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20) };
+    testRooms = new Room[] { new Room("AG 125", 200), new Room("Noland 168", 200), new Room("HUM " + "3650", 200) };
 
     // Testing
     try {
       // Creating a new Schedule Object
       testSchedule = new Schedule(testRooms, testCourses);
 
-      //Assigning course at index 1 to room at index 5 (invalid)
+      // Assigning course at index 1 to room at index 5 (invalid)
       testSchedule = testSchedule.assignCourse(1, 5);
 
-      // If program continues past this, exception is not passed as expected so returning false
+      // If program continues past this, exception is not passed as expected so
+      // returning false
       System.out.println("Problem Detected: Your assignCourse() method does not throw an "
           + "exception when passed an invalid room index");
       return false;
@@ -822,8 +901,8 @@ public class ExamSchedulerTester {
     } catch (IndexOutOfBoundsException e) {
 
       if (e.getMessage() == null || e.getMessage().length() == 0) {
-        System.out.println("Problem Detected: IndexOutOfBounds Exception does not have a "
-            + "descriptive message");
+        System.out.println(
+            "Problem Detected: IndexOutOfBounds Exception does not have a " + "descriptive message");
         return false;
       }
 
@@ -835,25 +914,25 @@ public class ExamSchedulerTester {
       return false;
     }
 
-    // Test 3: assignCourse() gives IllegalArgumentException if the given course has already
+    // Test 3: assignCourse() gives IllegalArgumentException if the given course has
+    // already
     // been assigned
     // Assigning Variables
-    testCourses =
-        new Course[] {new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20)};
-    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
-        new Room("HUM " + "3650", 200)};
+    testCourses = new Course[] { new Course("CS300", 20), new Course("CS200", 20), new Course("CS400", 20) };
+    testRooms = new Room[] { new Room("AG 125", 200), new Room("Noland 168", 200), new Room("HUM " + "3650", 200) };
 
     // Testing
     try {
       // Creating a new Schedule Object
       testSchedule = new Schedule(testRooms, testCourses);
 
-      //Assigning course at index 1 to room at index 5 (invalid)
+      // Assigning course at index 1 to room at index 5 (invalid)
       testSchedule = testSchedule.assignCourse(1, 2);
       // Assigning it a second time
       testSchedule = testSchedule.assignCourse(1, 2);
 
-      // If program continues past this, exception is not passed as expected so returning false
+      // If program continues past this, exception is not passed as expected so
+      // returning false
       System.out.println("Problem Detected: Your assignCourse() method does not throw an "
           + "exception when an already assigned room is assigned again");
       return false;
@@ -861,8 +940,8 @@ public class ExamSchedulerTester {
     } catch (IllegalArgumentException e) {
 
       if (e.getMessage() == null || e.getMessage().length() == 0) {
-        System.out.println("Problem Detected: IllegalOutOfBounds Exception does not have a "
-            + "descriptive message");
+        System.out.println(
+            "Problem Detected: IllegalOutOfBounds Exception does not have a " + "descriptive message");
         return false;
       }
 
@@ -870,27 +949,26 @@ public class ExamSchedulerTester {
       // wrong exception thrown
       e.printStackTrace();
       System.out.println("Problem Detected: Your assignCourse() method threw an exception "
-          + "other than IllegalArgumentException when an already assigned room is assigned "
-          + "again");
+          + "other than IllegalArgumentException when an already assigned room is assigned " + "again");
       return false;
     }
 
-    // Test 4: assignCourse() gives IllegalArgumentException if the given room does not have
+    // Test 4: assignCourse() gives IllegalArgumentException if the given room does
+    // not have
     // sufficient capacity
-    testCourses =
-        new Course[] {new Course("CS300", 20), new Course("CS200", 100), new Course("CS400", 20)};
-    testRooms = new Room[] {new Room("AG 125", 200), new Room("Noland 168", 200),
-        new Room("HUM " + "3650", 99)};
+    testCourses = new Course[] { new Course("CS300", 20), new Course("CS200", 100), new Course("CS400", 20) };
+    testRooms = new Room[] { new Room("AG 125", 200), new Room("Noland 168", 200), new Room("HUM " + "3650", 99) };
 
     // Testing
     try {
       // Creating a new Schedule Object
       testSchedule = new Schedule(testRooms, testCourses);
 
-      //Assigning course at index 1 to room at index 5 (invalid)
+      // Assigning course at index 1 to room at index 5 (invalid)
       testSchedule = testSchedule.assignCourse(1, 2);
 
-      // If program continues past this, exception is not passed as expected so returning false
+      // If program continues past this, exception is not passed as expected so
+      // returning false
       System.out.println("Problem Detected: Your assignCourse() method does not throw an "
           + "exception when called on a room that does not have sufficient capacity");
       return false;
@@ -898,8 +976,8 @@ public class ExamSchedulerTester {
     } catch (IllegalArgumentException e) {
 
       if (e.getMessage() == null || e.getMessage().length() == 0) {
-        System.out.println("Problem Detected: IllegalOutOfBounds Exception does not have a "
-            + "descriptive message");
+        System.out.println(
+            "Problem Detected: IllegalOutOfBounds Exception does not have a " + "descriptive message");
         return false;
       }
 
@@ -907,14 +985,18 @@ public class ExamSchedulerTester {
       // wrong exception thrown
       e.printStackTrace();
       System.out.println("Problem Detected: Your assignCourse() method threw an exception "
-          + "other than IllegalArgumentException when an already assigned room is assigned "
-          + "again");
+          + "other than IllegalArgumentException when an already assigned room is assigned " + "again");
       return false;
     }
 
     return true;
   }
 
+  /**
+   * Specifically checks whether the findSchedule() method which calls
+   * findScheduleHelper() in the ExamScheduler class works as expected when passed
+   * valid input.
+   */
   private static boolean testFindScheduleValidInputTester() {
     // Defining local variables
     Room[] testRooms;
@@ -926,14 +1008,14 @@ public class ExamSchedulerTester {
     // Test 1: Valid Inputs with a given solution
 
     // Assigning variables
-    testCourses = new Course[] {new Course("CS200", 15), new Course("CS300", 90),
-        new Course("CS400", 70)};
-    testRooms = new Room[] {new Room("Noland 168", 75), new Room("Sterling Hall", 100),
-        new Room("Van Vleck", 15)};
+    testCourses = new Course[] { new Course("CS200", 15), new Course("CS300", 90), new Course("CS400", 70) };
+    testRooms = new Room[] { new Room("Noland 168", 75), new Room("Sterling Hall", 100),
+        new Room("Van Vleck", 15) };
     expectedString = "{CS200: Van Vleck, CS300: Sterling Hall, CS400: Noland 168}";
 
     // System.out.println(expectedString);
-    // System.out.println(ExamScheduler.findSchedule(testRooms, testCourses).toString());
+    // System.out.println(ExamScheduler.findSchedule(testRooms,
+    // testCourses).toString());
     // Expected, a set schedule should be returned.
     // Testing
     try {
@@ -945,14 +1027,19 @@ public class ExamSchedulerTester {
       }
     } catch (Exception e) {
       e.printStackTrace();
-      System.out.println("Problem Detected: Your method findSchedule() gives an error with a "
-          + "set of valid inputs");
+      System.out.println(
+          "Problem Detected: Your method findSchedule() gives an error with a " + "set of valid inputs");
       return false;
     }
 
     return true;
   }
 
+  /**
+   * Specifically checks whether the findSchedule() method which calls
+   * findScheduleHelper() in the ExamScheduler class works as expected when passed
+   * invalid input.
+   */
   private static boolean testFindScheduleInvalidInputTester() {
     // Declaring local variables
     Room[] testRooms;
@@ -960,20 +1047,21 @@ public class ExamSchedulerTester {
     Schedule testSchedule;
 
     // Define test scenarios
-    // Test 1: Making sure exception is thrown wih a set of invalid inputs from which no
+    // Test 1: Making sure exception is thrown wih a set of invalid inputs from
+    // which no
     // schedule can be made
 
     // Assigning variables
-    testRooms = new Room[]{new Room("Noland 168", 14), new Room("AG Hall", 14), new Room(
-        "Brogden Psychology", 14)};
-    testCourses = new Course[]{new Course("CS200", 15), new Course("CS300", 15), new Course(
-        "CS400", 15)};
+    testRooms = new Room[] { new Room("Noland 168", 14), new Room("AG Hall", 14),
+        new Room("Brogden Psychology", 14) };
+    testCourses = new Course[] { new Course("CS200", 15), new Course("CS300", 15), new Course("CS400", 15) };
 
     // Testing
     try {
       testSchedule = ExamScheduler.findSchedule(testRooms, testCourses);
 
-      // If this line has been reached, the error has not been thrown properly so returning false
+      // If this line has been reached, the error has not been thrown properly so
+      // returning false
       return false;
     } catch (IllegalStateException e) {
       // expected
@@ -986,15 +1074,18 @@ public class ExamSchedulerTester {
     } catch (Exception e) {
       // Unexpected: Some other exception was thrown
       e.printStackTrace();
-      System.out.println("Problem Detected: Your method findSchedule() threw an exception other "
-          + "than an "
+      System.out.println("Problem Detected: Your method findSchedule() threw an exception other " + "than an "
           + "illegalStateException when called with invalid inputs");
     }
-
 
     return true;
   }
 
+  /**
+   * Specifically checks whether the findAllSchedule() method which calls
+   * findAllScheduleHelper() in the ExamScheduler class works as expected when
+   * passed valid input.
+   */
   private static boolean testFindAllScheduleValidInputTester() {
     // Declaring local variables
     Course[] testCourses;
@@ -1002,14 +1093,13 @@ public class ExamSchedulerTester {
     ArrayList<Schedule> testSchedulesList;
     String testString = "";
     // Defining test scenarios
-    // Test 1: Passing in a valid room and course array input and checking if the right output
+    // Test 1: Passing in a valid room and course array input and checking if the
+    // right output
     // is returned
 
-    //Assigning Variables
-    testCourses = new Course[]{new Course("CS200", 50), new Course("CS300", 110),
-        new Course("CS400", 75)};
-    testRooms = new Room[]{new Room("Room1", 100), new Room("Room2", 150), new Room(
-        "Room3", 75)};
+    // Assigning Variables
+    testCourses = new Course[] { new Course("CS200", 50), new Course("CS300", 110), new Course("CS400", 75) };
+    testRooms = new Room[] { new Room("Room1", 100), new Room("Room2", 150), new Room("Room3", 75) };
 
     // Testing
     try {
@@ -1019,20 +1109,25 @@ public class ExamSchedulerTester {
         testString = testString + testSchedulePointer.toString();
       }
       // Condition 1
-      if (!testString.equals("{CS200: Room1, CS300: Room2, CS400: Room3}{CS200: Room3, CS300: "
-          + "Room2, CS400: Room1}")) {
+      if (!testString.equals(
+          "{CS200: Room1, CS300: Room2, CS400: Room3}{CS200: Room3, CS300: " + "Room2, CS400: Room1}")) {
         System.out.println();
         return false;
       }
     } catch (Exception e) {
       e.printStackTrace();
-      System.out.println("Problem Detected: Your findAllSchedules() method does not return the "
-          + "expected schedule ");
+      System.out.println(
+          "Problem Detected: Your findAllSchedules() method does not return the " + "expected schedule ");
       return false;
     }
     return true;
   }
 
+  /**
+   * Specifically checks whether the findAllSchedule() method which calls
+   * findAllScheduleHelper() in the ExamScheduler class works as expected when
+   * passed invalid input.
+   */
   private static boolean testFindAllScheduleInvalidInputTester() {
     // Defining local variables
     Room[] testRooms;
@@ -1041,10 +1136,9 @@ public class ExamSchedulerTester {
 
     // Define test scenarios
     // Test 1: Assigning the variables
-    testRooms = new Room[]{new Room("Noland 168", 14), new Room("AG Hall", 14), new Room(
-        "Brogden Psychology", 14)};
-    testCourses = new Course[]{new Course("CS200", 15), new Course("CS300", 15), new Course(
-        "CS400", 15)};
+    testRooms = new Room[] { new Room("Noland 168", 14), new Room("AG Hall", 14),
+        new Room("Brogden Psychology", 14) };
+    testCourses = new Course[] { new Course("CS200", 15), new Course("CS300", 15), new Course("CS400", 15) };
 
     // Testing
     try {
@@ -1058,15 +1152,12 @@ public class ExamSchedulerTester {
         return false;
       }
     } catch (Exception e) {
-      // method passes an exception when  it shouldn't
+      // method passes an exception when it shouldn't
       e.printStackTrace();
       System.out.println("Problem Detected: Your findAllSchedules method returns an exception "
           + "when it shouldn't (with invalid inputs)");
       return false;
     }
-
     return true;
   }
-
-
-}
+} // Class ends
