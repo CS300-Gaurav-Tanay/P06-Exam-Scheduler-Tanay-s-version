@@ -27,18 +27,45 @@
 import java.util.ArrayList;
 
 /**
+ * The ExamScheduler class provides methods to find a single schedule permutation and all possible
+ * schedule permutations of the passed in room and courses arrays.
  *
+ * @author tanaynagar
+ * @author gmchopra
+ * @author mounakacem
+ * @author legault
+ * @version 1.0
  */
 public class ExamScheduler {
 
-  public static Schedule findSchedule(Room[] rooms, Course[] courses) {
+  /**
+   * returns a valid Schedule for the given set of rooms and courses
+   *
+   * @param rooms   rooms array in which the courses have to be assigned
+   * @param courses courses array which has to be assigned to the rooms
+   * @return the first schedule which is valid
+   * @throws IllegalStateException if no such schedule exists
+   */
+  public static Schedule findSchedule(Room[] rooms, Course[] courses)
+      throws IllegalStateException {
     // Creating a new Schedule Object
     Schedule scheduleToPass = new Schedule(rooms, courses);
     // Calling findScheduleHelper
     return ExamScheduler.findScheduleHelper(scheduleToPass, 0);
   }
 
-  private static Schedule findScheduleHelper(Schedule schedule, int index) {
+
+  /**
+   * recursive method that assigns all unassigned courses in a Schedule beginning from the index
+   * provided as an argument
+   *
+   * @param schedule Schedule Object in which the courses and the rooms have to be assigned
+   * @param index    index from which the course have to start being assigned
+   * @return (Schedule) The resulting schedule
+   * @throws IllegalStateException if no valid Schedule is found
+   */
+  private static Schedule findScheduleHelper(Schedule schedule, int index)
+      throws IllegalStateException {
     // Defining local variables
     int i, j = 0; // loop control variable
     Schedule newSchedule;
@@ -75,13 +102,30 @@ public class ExamScheduler {
           }
       }
     }
+    // no valid Schedule found here
     throw new IllegalStateException("Schedule Invalid");
   }
 
+  /**
+   * returns an ArrayList containing all possible Schedules for the given set of rooms and
+   * courses. (If none can be created, this ArrayList is empty.)
+   *
+   * @param rooms   rooms array to which the courses have to be assigned
+   * @param courses courses array which are to be assigned to the rooms
+   * @return (ArrayList of type Schedule) All Resulting valid Schedules
+   */
   public static ArrayList<Schedule> findAllSchedules(Room[] rooms, Course[] courses) {
     return findAllSchedulesHelper(new Schedule(rooms, courses), 0);
   }
 
+  /**
+   * recursive method that assigns all unassigned courses in a Schedule in ALL POSSIBLE ways,
+   * beginning from the index provided as an argument
+   *
+   * @param schedule Schedule in which the course and the rooms have to be assigned
+   * @param index index from which the course have to start being scheduled
+   * @return (ArrayList of type Schedule) All valid resulting Schedules
+   */
   private static ArrayList<Schedule> findAllSchedulesHelper(Schedule schedule, int index) {
     // Creating the ArrayList which will be returned
     ArrayList<Schedule> allSchedules = new ArrayList<>();
@@ -108,13 +152,4 @@ public class ExamScheduler {
     }
     return allSchedules;
   }
-
-  public static void main(String[] args) {
-    // Creating local variables
-    Course[] testCourse = new Course[] {new Course("CS 200", 15), new Course("CS 300", 90),
-        new Course("CS 400", 70)};
-    Room[] testRoom = new Room[] {new Room("Noland 168", 75), new Room("Sterling Hall", 100),
-        new Room("Van Vleck", 15)};
-    System.out.println(findSchedule(testRoom, testCourse).toString());
-  }
-}
+} // class ends
